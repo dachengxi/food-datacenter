@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.cxis.fdc.dao.mapper.FoodNutrientDOMapper">
+  <resultMap id="BaseResultMap" type="me.cxis.fdc.dao.model.FoodNutrientDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="modifier_id" jdbcType="VARCHAR" property="modifierId" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="food_id" jdbcType="BIGINT" property="foodId" />
+    <result column="nutrient_id" jdbcType="BIGINT" property="nutrientId" />
+    <result column="package_weight" jdbcType="DECIMAL" property="packageWeight" />
+    <result column="unit_id" jdbcType="VARCHAR" property="unitId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, creator_id, modifier_id, deleted, food_id, nutrient_id, 
+    package_weight, unit_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from food_nutrient
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from food_nutrient
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
+    insert into food_nutrient (id, create_time, update_time, 
+      creator_id, modifier_id, deleted, 
+      food_id, nutrient_id, package_weight, 
+      unit_id)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{creatorId,jdbcType=VARCHAR}, #{modifierId,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{foodId,jdbcType=BIGINT}, #{nutrientId,jdbcType=BIGINT}, #{packageWeight,jdbcType=DECIMAL}, 
+      #{unitId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
+    insert into food_nutrient
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="modifierId != null">
+        modifier_id,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="foodId != null">
+        food_id,
+      </if>
+      <if test="nutrientId != null">
+        nutrient_id,
+      </if>
+      <if test="packageWeight != null">
+        package_weight,
+      </if>
+      <if test="unitId != null">
+        unit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierId != null">
+        #{modifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="foodId != null">
+        #{foodId,jdbcType=BIGINT},
+      </if>
+      <if test="nutrientId != null">
+        #{nutrientId,jdbcType=BIGINT},
+      </if>
+      <if test="packageWeight != null">
+        #{packageWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
+    update food_nutrient
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierId != null">
+        modifier_id = #{modifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="foodId != null">
+        food_id = #{foodId,jdbcType=BIGINT},
+      </if>
+      <if test="nutrientId != null">
+        nutrient_id = #{nutrientId,jdbcType=BIGINT},
+      </if>
+      <if test="packageWeight != null">
+        package_weight = #{packageWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="unitId != null">
+        unit_id = #{unitId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
+    update food_nutrient
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      modifier_id = #{modifierId,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      food_id = #{foodId,jdbcType=BIGINT},
+      nutrient_id = #{nutrientId,jdbcType=BIGINT},
+      package_weight = #{packageWeight,jdbcType=DECIMAL},
+      unit_id = #{unitId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
