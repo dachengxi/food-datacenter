@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: food-datacenter
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/food_datacenter?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/sqlmap/*.xml
+  type-aliases-package: me.cxis.fdc.model.dao

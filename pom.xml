@@ -14,23 +14,25 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>3.0.0-M7</maven-surefire-report-plugin.version>
+        <maven-project-info-reports-plugin.version>3.4.1</maven-project-info-reports-plugin.version>
+        <maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
+        <maven-deploy-plugin.version>3.0.0-M2</maven-deploy-plugin.version>
         <spring-boot.version>3.0.0</spring-boot.version>
-        <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
-        <spock-bom.version>2.2-M1-groovy-3.0</spock-bom.version>
-        <spock-reports.version>2.3.0-groovy-3.0</spock-reports.version>
-        <junit5-bom.version>5.8.2</junit5-bom.version>
-        <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>3.0.0-M6</maven-surefire-report-plugin.version>
-        <maven-project-info-reports-plugin.version>3.2.2</maven-project-info-reports-plugin.version>
-        <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
-        <groovy-all.version>3.0.10</groovy-all.version>
-        <mybatis.starter.version>2.2.2</mybatis.starter.version>
-        <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
+        <gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
+        <spock-bom.version>2.4-M1-groovy-4.0</spock-bom.version>
+        <spock-reports.version>2.4.0-groovy-4.0</spock-reports.version>
+        <junit5-bom.version>5.9.1</junit5-bom.version>
+        <groovy-all.version>4.0.6</groovy-all.version>
+        <mybatis.starter.version>3.0.0</mybatis.starter.version>
+        <mysql-connector-java.version>8.0.31</mysql-connector-java.version>
     </properties>
 
     <dependencyManagement>
@@ -52,13 +54,14 @@
             </dependency>
 
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${groovy-all.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
+            <!-- Spock单测框架依赖 -->
             <dependency>
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-bom</artifactId>
@@ -67,6 +70,7 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Spock单测报告依赖 -->
             <dependency>
                 <groupId>com.athaydes</groupId>
                 <artifactId>spock-reports</artifactId>
@@ -91,6 +95,13 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- 使用maven打包SpringBoot项目插件 -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+
                 <!-- 在Maven中使用Groovy的插件 -->
                 <plugin>
                     <groupId>org.codehaus.gmavenplus</groupId>
@@ -109,6 +120,29 @@
                     </executions>
                 </plugin>
 
+                <!-- maven deploy插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+
+                <!-- 打包源码插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                                <goal>test-jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <!-- 单测插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -117,10 +151,17 @@
                     <configuration>
                         <includes>
                             <include>**/*Spec</include>
+
+                            <!-- 以下将默认的命名规则添加进来 -->
+                            <include>**/Test*.java</include>
+                            <include>**/*Test.java</include>
+                            <include>**/*Tests.java</include>
+                            <include>**/*TestCase.java</include>
                         </includes>
                     </configuration>
                 </plugin>
 
+                <!-- 生成站点插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
