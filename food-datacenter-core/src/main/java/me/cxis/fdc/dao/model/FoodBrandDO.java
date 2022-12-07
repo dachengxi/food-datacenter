@@ -20,7 +20,9 @@ public class FoodBrandDO {
 
     private Long brandId;
 
-    private String packageWeight;
+    private BigDecimal packageWeight;
+
+    private Long packageWeightUnitId;
 
     private BigDecimal packageServing;
 
@@ -90,12 +92,20 @@ public class FoodBrandDO {
         this.brandId = brandId;
     }
 
-    public String getPackageWeight() {
+    public BigDecimal getPackageWeight() {
         return packageWeight;
     }
 
-    public void setPackageWeight(String packageWeight) {
+    public void setPackageWeight(BigDecimal packageWeight) {
         this.packageWeight = packageWeight;
+    }
+
+    public Long getPackageWeightUnitId() {
+        return packageWeightUnitId;
+    }
+
+    public void setPackageWeightUnitId(Long packageWeightUnitId) {
+        this.packageWeightUnitId = packageWeightUnitId;
     }
 
     public BigDecimal getPackageServing() {

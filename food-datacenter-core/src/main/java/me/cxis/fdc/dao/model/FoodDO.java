@@ -26,7 +26,7 @@ public class FoodDO {
 
     private Long categoryId;
 
-    private Long typeId;
+    private Integer type;
 
     private String serving;
 
@@ -36,7 +36,7 @@ public class FoodDO {
 
     private BigDecimal servingAmount;
 
-    private String servingAmountUnitCode;
+    private Long servingAmountUnitId;
 
     private Long sourceId;
 
@@ -132,12 +132,12 @@ public class FoodDO {
         this.categoryId = categoryId;
     }
 
-    public Long getTypeId() {
-        return typeId;
+    public Integer getType() {
+        return type;
     }
 
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getServing() {
@@ -172,12 +172,12 @@ public class FoodDO {
         this.servingAmount = servingAmount;
     }
 
-    public String getServingAmountUnitCode() {
-        return servingAmountUnitCode;
+    public Long getServingAmountUnitId() {
+        return servingAmountUnitId;
     }
 
-    public void setServingAmountUnitCode(String servingAmountUnitCode) {
-        this.servingAmountUnitCode = servingAmountUnitCode;
+    public void setServingAmountUnitId(Long servingAmountUnitId) {
+        this.servingAmountUnitId = servingAmountUnitId;
     }
 
     public Long getSourceId() {

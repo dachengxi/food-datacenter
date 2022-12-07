@@ -13,20 +13,20 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="category_id" jdbcType="BIGINT" property="categoryId" />
-    <result column="type_id" jdbcType="BIGINT" property="typeId" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
     <result column="serving" jdbcType="VARCHAR" property="serving" />
     <result column="serving_value" jdbcType="DECIMAL" property="servingValue" />
     <result column="serving_unit_id" jdbcType="BIGINT" property="servingUnitId" />
     <result column="serving_amount" jdbcType="DECIMAL" property="servingAmount" />
-    <result column="serving_amount_unit_code" jdbcType="VARCHAR" property="servingAmountUnitCode" />
+    <result column="serving_amount_unit_id" jdbcType="BIGINT" property="servingAmountUnitId" />
     <result column="source_id" jdbcType="BIGINT" property="sourceId" />
     <result column="source_code" jdbcType="VARCHAR" property="sourceCode" />
     <result column="branded" jdbcType="BIT" property="branded" />
   </resultMap>
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, channel_id, code, 
-    name, description, category_id, type_id, serving, serving_value, serving_unit_id, 
-    serving_amount, serving_amount_unit_code, source_id, source_code, branded
+    name, description, category_id, type, serving, serving_value, serving_unit_id, serving_amount, 
+    serving_amount_unit_id, source_id, source_code, branded
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -42,16 +42,16 @@
     insert into food (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
       channel_id, code, name, 
-      description, category_id, type_id, 
+      description, category_id, type, 
       serving, serving_value, serving_unit_id, 
-      serving_amount, serving_amount_unit_code, source_id, 
+      serving_amount, serving_amount_unit_id, source_id, 
       source_code, branded)
     values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{creatorId,jdbcType=VARCHAR}, #{modifierId,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
       #{channelId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{categoryId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT}, 
+      #{description,jdbcType=VARCHAR}, #{categoryId,jdbcType=BIGINT}, #{type,jdbcType=SMALLINT}, 
       #{serving,jdbcType=VARCHAR}, #{servingValue,jdbcType=DECIMAL}, #{servingUnitId,jdbcType=BIGINT}, 
-      #{servingAmount,jdbcType=DECIMAL}, #{servingAmountUnitCode,jdbcType=VARCHAR}, #{sourceId,jdbcType=BIGINT}, 
+      #{servingAmount,jdbcType=DECIMAL}, #{servingAmountUnitId,jdbcType=BIGINT}, #{sourceId,jdbcType=BIGINT}, 
       #{sourceCode,jdbcType=VARCHAR}, #{branded,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodDO">
@@ -90,8 +90,8 @@
       <if test="categoryId != null">
         category_id,
       </if>
-      <if test="typeId != null">
-        type_id,
+      <if test="type != null">
+        type,
       </if>
       <if test="serving != null">
         serving,
@@ -105,8 +105,8 @@
       <if test="servingAmount != null">
         serving_amount,
       </if>
-      <if test="servingAmountUnitCode != null">
-        serving_amount_unit_code,
+      <if test="servingAmountUnitId != null">
+        serving_amount_unit_id,
       </if>
       <if test="sourceId != null">
         source_id,
@@ -152,8 +152,8 @@
       <if test="categoryId != null">
         #{categoryId,jdbcType=BIGINT},
       </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=BIGINT},
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
       </if>
       <if test="serving != null">
         #{serving,jdbcType=VARCHAR},
@@ -167,8 +167,8 @@
       <if test="servingAmount != null">
         #{servingAmount,jdbcType=DECIMAL},
       </if>
-      <if test="servingAmountUnitCode != null">
-        #{servingAmountUnitCode,jdbcType=VARCHAR},
+      <if test="servingAmountUnitId != null">
+        #{servingAmountUnitId,jdbcType=BIGINT},
       </if>
       <if test="sourceId != null">
         #{sourceId,jdbcType=BIGINT},
@@ -214,8 +214,8 @@
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=BIGINT},
       </if>
-      <if test="typeId != null">
-        type_id = #{typeId,jdbcType=BIGINT},
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
       </if>
       <if test="serving != null">
         serving = #{serving,jdbcType=VARCHAR},
@@ -229,8 +229,8 @@
       <if test="servingAmount != null">
         serving_amount = #{servingAmount,jdbcType=DECIMAL},
       </if>
-      <if test="servingAmountUnitCode != null">
-        serving_amount_unit_code = #{servingAmountUnitCode,jdbcType=VARCHAR},
+      <if test="servingAmountUnitId != null">
+        serving_amount_unit_id = #{servingAmountUnitId,jdbcType=BIGINT},
       </if>
       <if test="sourceId != null">
         source_id = #{sourceId,jdbcType=BIGINT},
@@ -256,15 +256,16 @@
       name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=BIGINT},
-      type_id = #{typeId,jdbcType=BIGINT},
+      type = #{type,jdbcType=SMALLINT},
       serving = #{serving,jdbcType=VARCHAR},
       serving_value = #{servingValue,jdbcType=DECIMAL},
       serving_unit_id = #{servingUnitId,jdbcType=BIGINT},
       serving_amount = #{servingAmount,jdbcType=DECIMAL},
-      serving_amount_unit_code = #{servingAmountUnitCode,jdbcType=VARCHAR},
+      serving_amount_unit_id = #{servingAmountUnitId,jdbcType=BIGINT},
       source_id = #{sourceId,jdbcType=BIGINT},
       source_code = #{sourceCode,jdbcType=VARCHAR},
       branded = #{branded,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
 </mapper>

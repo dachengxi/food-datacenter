@@ -20,7 +20,7 @@ public class FoodNutrientDO {
 
     private Long nutrientId;
 
-    private BigDecimal packageWeight;
+    private BigDecimal value;
 
     private String unitId;
 
@@ -88,12 +88,12 @@ public class FoodNutrientDO {
         this.nutrientId = nutrientId;
     }
 
-    public BigDecimal getPackageWeight() {
-        return packageWeight;
+    public BigDecimal getValue() {
+        return value;
     }
 
-    public void setPackageWeight(BigDecimal packageWeight) {
-        this.packageWeight = packageWeight;
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 
     public String getUnitId() {

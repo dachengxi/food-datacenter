@@ -10,13 +10,14 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="food_id" jdbcType="BIGINT" property="foodId" />
     <result column="brand_id" jdbcType="BIGINT" property="brandId" />
-    <result column="package_weight" jdbcType="VARCHAR" property="packageWeight" />
+    <result column="package_weight" jdbcType="DECIMAL" property="packageWeight" />
+    <result column="package_weight_unit_id" jdbcType="BIGINT" property="packageWeightUnitId" />
     <result column="package_serving" jdbcType="DECIMAL" property="packageServing" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
   </resultMap>
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, food_id, brand_id, 
-    package_weight, package_serving, product_code
+    package_weight, package_weight_unit_id, package_serving, product_code
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -32,11 +33,13 @@
     insert into food_brand (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
       food_id, brand_id, package_weight, 
-      package_serving, product_code)
+      package_weight_unit_id, package_serving, product_code
+      )
     values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{creatorId,jdbcType=VARCHAR}, #{modifierId,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
-      #{foodId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{packageWeight,jdbcType=VARCHAR}, 
-      #{packageServing,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR})
+      #{foodId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{packageWeight,jdbcType=DECIMAL}, 
+      #{packageWeightUnitId,jdbcType=BIGINT}, #{packageServing,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodBrandDO">
     insert into food_brand
@@ -67,6 +70,9 @@
       </if>
       <if test="packageWeight != null">
         package_weight,
+      </if>
+      <if test="packageWeightUnitId != null">
+        package_weight_unit_id,
       </if>
       <if test="packageServing != null">
         package_serving,
@@ -101,7 +107,10 @@
         #{brandId,jdbcType=BIGINT},
       </if>
       <if test="packageWeight != null">
-        #{packageWeight,jdbcType=VARCHAR},
+        #{packageWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="packageWeightUnitId != null">
+        #{packageWeightUnitId,jdbcType=BIGINT},
       </if>
       <if test="packageServing != null">
         #{packageServing,jdbcType=DECIMAL},
@@ -136,7 +145,10 @@
         brand_id = #{brandId,jdbcType=BIGINT},
       </if>
       <if test="packageWeight != null">
-        package_weight = #{packageWeight,jdbcType=VARCHAR},
+        package_weight = #{packageWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="packageWeightUnitId != null">
+        package_weight_unit_id = #{packageWeightUnitId,jdbcType=BIGINT},
       </if>
       <if test="packageServing != null">
         package_serving = #{packageServing,jdbcType=DECIMAL},
@@ -156,9 +168,9 @@
       deleted = #{deleted,jdbcType=BIT},
       food_id = #{foodId,jdbcType=BIGINT},
       brand_id = #{brandId,jdbcType=BIGINT},
-      package_weight = #{packageWeight,jdbcType=VARCHAR},
+      package_weight = #{packageWeight,jdbcType=DECIMAL},
+      package_weight_unit_id = #{packageWeightUnitId,jdbcType=BIGINT},
       package_serving = #{packageServing,jdbcType=DECIMAL},
       product_code = #{productCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
-  </update>
-</mapper>
+  </update></mapper>
