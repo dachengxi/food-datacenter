@@ -14,20 +14,24 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, channel_id, code, 
     name, description, url
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from source
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from source
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.SourceDO">
     insert into source (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -38,6 +42,7 @@
       #{channelId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.SourceDO">
     insert into source
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -111,6 +116,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.SourceDO">
     update source
     <set>
@@ -147,6 +153,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.SourceDO">
     update source
     set create_time = #{createTime,jdbcType=TIMESTAMP},

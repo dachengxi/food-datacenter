@@ -3,6 +3,7 @@ package me.cxis.fdc.dao.mapper;
 import me.cxis.fdc.dao.model.UnitDO;
 
 public interface UnitDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(UnitDO row);

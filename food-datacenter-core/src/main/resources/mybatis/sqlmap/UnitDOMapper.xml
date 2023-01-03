@@ -16,20 +16,24 @@
     <result column="display_name" jdbcType="VARCHAR" property="displayName" />
     <result column="abbreviation" jdbcType="VARCHAR" property="abbreviation" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, channel_id, code, 
     type, name, description, display_name, abbreviation
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from unit
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from unit
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.UnitDO">
     insert into unit (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -42,6 +46,7 @@
       #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
       #{abbreviation,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.UnitDO">
     insert into unit
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -127,6 +132,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.UnitDO">
     update unit
     <set>
@@ -169,6 +175,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.UnitDO">
     update unit
     set create_time = #{createTime,jdbcType=TIMESTAMP},

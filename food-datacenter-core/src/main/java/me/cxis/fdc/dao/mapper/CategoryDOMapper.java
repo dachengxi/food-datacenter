@@ -3,6 +3,7 @@ package me.cxis.fdc.dao.mapper;
 import me.cxis.fdc.dao.model.CategoryDO;
 
 public interface CategoryDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(CategoryDO row);

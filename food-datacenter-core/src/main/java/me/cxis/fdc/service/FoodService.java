@@ -1,18 +1,15 @@
 package me.cxis.fdc.service;
 
 import jakarta.annotation.Resource;
-import me.cxis.fdc.dao.model.CategoryDO;
-import me.cxis.fdc.dao.model.ChannelDO;
-import me.cxis.fdc.dao.model.FoodDO;
-import me.cxis.fdc.dao.model.LanguageDO;
-import me.cxis.fdc.manager.CategoryManager;
-import me.cxis.fdc.manager.ChannelManager;
-import me.cxis.fdc.manager.FoodManager;
-import me.cxis.fdc.manager.LanguageManager;
-import me.cxis.fdc.model.Category;
-import me.cxis.fdc.model.Food;
+import me.cxis.fdc.dao.model.*;
+import me.cxis.fdc.manager.*;
+import me.cxis.fdc.model.*;
 import me.cxis.fdc.model.param.FoodIdQueryParam;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FoodService {
@@ -29,18 +26,14 @@ public class FoodService {
     @Resource
     private CategoryManager categoryManager;
 
-    public boolean add() {
-        return foodManager.add();
-    }
+    @Resource
+    private UnitManager unitManager;
 
-    public String queryFoodName(Long id) {
-        FoodDO foodDO = foodManager.queryById(id);
-        if (foodDO == null) {
-            return null;
-        }
+    @Resource
+    private SourceManager sourceManager;
 
-        return foodDO.getName();
-    }
+    @Resource
+    private FoodImageManager foodImageManager;
 
     public Food queryById(FoodIdQueryParam param) {
         String channelCode = param.getChannel();
@@ -74,9 +67,102 @@ public class FoodService {
 
         setCategory(food, categoryDO);
 
-        // TODO
+        // 食物份单位
+        Long servingUnitId = foodDO.getServingUnitId();
+        UnitDO servingUnitDO = unitManager.queryById(servingUnitId);
+        setServingUnit(food, servingUnitDO);
+
+        // 食物份的量的单位
+        Long servingAmountUnitId = foodDO.getServingAmountUnitId();;
+        UnitDO servingAmountUnitDO = unitManager.queryById(servingAmountUnitId);
+        setServingAmountUnit(food, servingAmountUnitDO);
+
+        // 食物来源
+        Long sourceId = foodDO.getSourceId();
+        SourceDO sourceDO = sourceManager.queryById(sourceId);
+        setSource(food, sourceDO);
+
+        // 食物图片
+        List<FoodImageDO> foodImageDOS = foodImageManager.queryByFoodId(foodDO.getId());
+        if (CollectionUtils.isNotEmpty(foodImageDOS)) {
+            setFoodImages(food, foodImageDOS);
+        }
+
+        // TODO fodIngredients
+
+        // TODO foodBrand
+
+        // TODO foodNutrients
+
+
+        // TODO 补全各个对象中的Channel信息
+
+        // TODO language
 
         return food;
+    }
+
+    private void setFoodImages(Food food, List<FoodImageDO> foodImageDOS) {
+        List<FoodImage> foodImages = foodImageDOS.stream().map(this::toFoodImage).toList();
+        food.setFoodImages(foodImages);
+    }
+
+    private FoodImage toFoodImage(FoodImageDO source) {
+        if (source == null) {
+            return null;
+        }
+
+        FoodImage target = new FoodImage();
+        target.setId(source.getId());
+        target.setFoodId(source.getFoodId());
+        target.setUrl(source.getUrl());
+        target.setOrder(source.getOrder());
+        return target;
+    }
+
+    private void setSource(Food food, SourceDO sourceDO) {
+        Source source = toSource(sourceDO);
+        food.setSource(source);
+    }
+
+    private Source toSource(SourceDO source) {
+        if (source == null) {
+            return null;
+        }
+
+        Source target = new Source();
+        target.setId(source.getId());
+        target.setCode(source.getCode());
+        target.setName(source.getName());
+        target.setDescription(source.getDescription());
+        target.setUrl(source.getUrl());
+        return target;
+    }
+
+    private void setServingAmountUnit(Food food, UnitDO servingAmountUnitDO) {
+        Unit unit = toUnit(servingAmountUnitDO);
+        food.setServingAmountUnit(unit);
+    }
+
+    private void setServingUnit(Food food, UnitDO unitDO) {
+        Unit unit = toUnit(unitDO);
+        food.setServingUnit(unit);
+    }
+
+    private Unit toUnit(UnitDO source) {
+        if (source == null) {
+            return null;
+        }
+
+        Unit target = new Unit();
+        target.setId(source.getId());
+        target.setCode(source.getCode());
+        target.setType(source.getType());
+        target.setName(source.getName());
+        target.setDescription(source.getDescription());
+        target.setDisplayName(source.getDisplayName());
+        target.setAbbreviation(source.getAbbreviation());
+        return target;
     }
 
     private void setCategory(Food food, CategoryDO categoryDO) {

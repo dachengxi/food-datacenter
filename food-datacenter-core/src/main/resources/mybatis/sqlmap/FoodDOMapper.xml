@@ -23,21 +23,25 @@
     <result column="source_code" jdbcType="VARCHAR" property="sourceCode" />
     <result column="branded" jdbcType="BIT" property="branded" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, channel_id, code, 
     name, description, category_id, type, serving, serving_value, serving_unit_id, serving_amount, 
     serving_amount_unit_id, source_id, source_code, branded
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from food
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from food
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.FoodDO">
     insert into food (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -54,6 +58,7 @@
       #{servingAmount,jdbcType=DECIMAL}, #{servingAmountUnitId,jdbcType=BIGINT}, #{sourceId,jdbcType=BIGINT}, 
       #{sourceCode,jdbcType=VARCHAR}, #{branded,jdbcType=BIT})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodDO">
     insert into food
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -181,6 +186,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.FoodDO">
     update food
     <set>
@@ -244,6 +250,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.FoodDO">
     update food
     set create_time = #{createTime,jdbcType=TIMESTAMP},

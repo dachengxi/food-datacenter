@@ -3,6 +3,7 @@ package me.cxis.fdc.dao.mapper;
 import me.cxis.fdc.dao.model.LanguageDO;
 
 public interface LanguageDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(LanguageDO row);
@@ -14,4 +15,6 @@ public interface LanguageDOMapper {
     int updateByPrimaryKeySelective(LanguageDO row);
 
     int updateByPrimaryKey(LanguageDO row);
+
+    LanguageDO selectByCode(String languageCode);
 }

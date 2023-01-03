@@ -13,20 +13,24 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, code, default_language_code, 
     name, description
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from channel
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from channel
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.ChannelDO">
     insert into channel (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -37,6 +41,7 @@
       #{code,jdbcType=VARCHAR}, #{defaultLanguageCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.ChannelDO">
     insert into channel
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -104,6 +109,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.ChannelDO">
     update channel
     <set>
@@ -137,6 +143,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.ChannelDO">
     update channel
     set create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -150,4 +157,11 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from channel
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
 </mapper>

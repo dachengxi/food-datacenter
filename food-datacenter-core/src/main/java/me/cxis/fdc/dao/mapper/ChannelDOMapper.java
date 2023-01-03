@@ -3,6 +3,7 @@ package me.cxis.fdc.dao.mapper;
 import me.cxis.fdc.dao.model.ChannelDO;
 
 public interface ChannelDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(ChannelDO row);
@@ -14,4 +15,6 @@ public interface ChannelDOMapper {
     int updateByPrimaryKeySelective(ChannelDO row);
 
     int updateByPrimaryKey(ChannelDO row);
+
+    ChannelDO selectByCode(String channelCode);
 }

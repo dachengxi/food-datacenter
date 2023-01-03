@@ -33,6 +33,7 @@
         <groovy-all.version>4.0.6</groovy-all.version>
         <mybatis.starter.version>3.0.0</mybatis.starter.version>
         <mysql-connector-java.version>8.0.31</mysql-connector-java.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
     </properties>
 
     <dependencyManagement>
@@ -94,6 +95,12 @@
                 <groupId>me.cxis</groupId>
                 <artifactId>food-datacenter-api</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
