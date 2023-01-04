@@ -1,8 +1,10 @@
 package me.cxis.fdc.dao.mapper;
 
 import me.cxis.fdc.dao.model.FoodLanguageDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface FoodLanguageDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(FoodLanguageDO row);
@@ -14,4 +16,6 @@ public interface FoodLanguageDOMapper {
     int updateByPrimaryKeySelective(FoodLanguageDO row);
 
     int updateByPrimaryKey(FoodLanguageDO row);
+
+    FoodLanguageDO selectByFoodIdAndLanguageCode(@Param("foodId") Long foodId, @Param("languageCode") String languageCode);
 }

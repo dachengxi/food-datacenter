@@ -12,6 +12,8 @@ public class Channel implements Serializable {
 
     private String code;
 
+    private String defaultLanguageCode;
+
     private Language defaultLanguage;
 
     private String name;
@@ -32,6 +34,14 @@ public class Channel implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDefaultLanguageCode() {
+        return defaultLanguageCode;
+    }
+
+    public void setDefaultLanguageCode(String defaultLanguageCode) {
+        this.defaultLanguageCode = defaultLanguageCode;
     }
 
     public Language getDefaultLanguage() {
@@ -63,6 +73,7 @@ public class Channel implements Serializable {
         return "Channel{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
+                ", defaultLanguageCode='" + defaultLanguageCode + '\'' +
                 ", defaultLanguage=" + defaultLanguage +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

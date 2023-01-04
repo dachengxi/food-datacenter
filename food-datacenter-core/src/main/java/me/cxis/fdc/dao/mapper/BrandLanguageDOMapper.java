@@ -1,8 +1,10 @@
 package me.cxis.fdc.dao.mapper;
 
 import me.cxis.fdc.dao.model.BrandLanguageDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface BrandLanguageDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(BrandLanguageDO row);
@@ -14,4 +16,6 @@ public interface BrandLanguageDOMapper {
     int updateByPrimaryKeySelective(BrandLanguageDO row);
 
     int updateByPrimaryKey(BrandLanguageDO row);
+
+    BrandLanguageDO selectByBrandIdAndLanguageCode(@Param("brandId") Long brandId, @Param("languageCode") String languageCode);
 }

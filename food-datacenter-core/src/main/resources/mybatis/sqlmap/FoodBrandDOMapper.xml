@@ -15,20 +15,24 @@
     <result column="package_serving" jdbcType="DECIMAL" property="packageServing" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, food_id, brand_id, 
     package_weight, package_weight_unit_id, package_serving, product_code
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from food_brand
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from food_brand
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.FoodBrandDO">
     insert into food_brand (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -41,6 +45,7 @@
       #{packageWeightUnitId,jdbcType=BIGINT}, #{packageServing,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodBrandDO">
     insert into food_brand
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -120,6 +125,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.FoodBrandDO">
     update food_brand
     <set>
@@ -159,6 +165,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.FoodBrandDO">
     update food_brand
     set create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -173,4 +180,12 @@
       package_serving = #{packageServing,jdbcType=DECIMAL},
       product_code = #{productCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
-  </update></mapper>
+  </update>
+
+  <select id="selectByFoodId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from food_brand
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </select>
+</mapper>

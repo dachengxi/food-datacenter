@@ -2,7 +2,10 @@ package me.cxis.fdc.dao.mapper;
 
 import me.cxis.fdc.dao.model.FoodNutrientDO;
 
+import java.util.List;
+
 public interface FoodNutrientDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(FoodNutrientDO row);
@@ -14,4 +17,6 @@ public interface FoodNutrientDOMapper {
     int updateByPrimaryKeySelective(FoodNutrientDO row);
 
     int updateByPrimaryKey(FoodNutrientDO row);
+
+    List<FoodNutrientDO> selectByFoodId(Long foodId);
 }

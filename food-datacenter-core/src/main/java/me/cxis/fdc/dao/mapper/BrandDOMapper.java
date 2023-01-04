@@ -3,6 +3,7 @@ package me.cxis.fdc.dao.mapper;
 import me.cxis.fdc.dao.model.BrandDO;
 
 public interface BrandDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(BrandDO row);

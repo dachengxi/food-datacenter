@@ -13,9 +13,13 @@ public class FoodNutrient implements Serializable {
 
     private Long foodId;
 
+    private Long nutrientId;
+
     private Nutrient nutrient;
 
     private BigDecimal value;
+
+    private Long unitId;
 
     private Unit unit;
 
@@ -35,6 +39,14 @@ public class FoodNutrient implements Serializable {
         this.foodId = foodId;
     }
 
+    public Long getNutrientId() {
+        return nutrientId;
+    }
+
+    public void setNutrientId(Long nutrientId) {
+        this.nutrientId = nutrientId;
+    }
+
     public Nutrient getNutrient() {
         return nutrient;
     }
@@ -51,6 +63,14 @@ public class FoodNutrient implements Serializable {
         this.value = value;
     }
 
+    public Long getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Long unitId) {
+        this.unitId = unitId;
+    }
+
     public Unit getUnit() {
         return unit;
     }
@@ -64,8 +84,10 @@ public class FoodNutrient implements Serializable {
         return "FoodNutrient{" +
                 "id=" + id +
                 ", foodId=" + foodId +
+                ", nutrientId=" + nutrientId +
                 ", nutrient=" + nutrient +
                 ", value=" + value +
+                ", unitId=" + unitId +
                 ", unit=" + unit +
                 '}';
     }

@@ -1,8 +1,10 @@
 package me.cxis.fdc.dao.mapper;
 
 import me.cxis.fdc.dao.model.SourceLanguageDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface SourceLanguageDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(SourceLanguageDO row);
@@ -14,4 +16,6 @@ public interface SourceLanguageDOMapper {
     int updateByPrimaryKeySelective(SourceLanguageDO row);
 
     int updateByPrimaryKey(SourceLanguageDO row);
+
+    SourceLanguageDO selectBySourceIdAndLanguageCode(@Param("sourceId") Long sourceId, @Param("languageCode") String languageCode);
 }

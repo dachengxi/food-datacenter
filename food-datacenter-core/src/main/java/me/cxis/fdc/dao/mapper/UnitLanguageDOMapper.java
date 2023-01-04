@@ -1,8 +1,10 @@
 package me.cxis.fdc.dao.mapper;
 
 import me.cxis.fdc.dao.model.UnitLanguageDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface UnitLanguageDOMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(UnitLanguageDO row);
@@ -14,4 +16,6 @@ public interface UnitLanguageDOMapper {
     int updateByPrimaryKeySelective(UnitLanguageDO row);
 
     int updateByPrimaryKey(UnitLanguageDO row);
+
+    UnitLanguageDO selectByUnitIdAndLanguageCode(@Param("unitId") Long unitId, @Param("languageCode") String languageCode);
 }

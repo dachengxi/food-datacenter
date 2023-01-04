@@ -12,20 +12,24 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, channel_id, code, 
     name
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from brand_owner
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from brand_owner
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.BrandOwnerDO">
     insert into brand_owner (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -36,6 +40,7 @@
       #{channelId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.BrandOwnerDO">
     insert into brand_owner
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -97,6 +102,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.BrandOwnerDO">
     update brand_owner
     <set>
@@ -127,6 +133,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.BrandOwnerDO">
     update brand_owner
     set create_time = #{createTime,jdbcType=TIMESTAMP},

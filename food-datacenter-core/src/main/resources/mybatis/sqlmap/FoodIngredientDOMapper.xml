@@ -13,20 +13,24 @@
     <result column="serving" jdbcType="VARCHAR" property="serving" />
     <result column="serving_value" jdbcType="DECIMAL" property="servingValue" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, food_id, ingredient_food_id, 
     serving, serving_value
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from food_ingredient
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from food_ingredient
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.FoodIngredientDO">
     insert into food_ingredient (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -37,6 +41,7 @@
       #{foodId,jdbcType=BIGINT}, #{ingredientFoodId,jdbcType=BIGINT}, #{serving,jdbcType=VARCHAR}, 
       #{servingValue,jdbcType=DECIMAL})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodIngredientDO">
     insert into food_ingredient
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -104,6 +109,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.FoodIngredientDO">
     update food_ingredient
     <set>
@@ -137,6 +143,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.FoodIngredientDO">
     update food_ingredient
     set create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -150,4 +157,11 @@
       serving_value = #{servingValue,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByFoodId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from food_ingredient
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </select>
 </mapper>

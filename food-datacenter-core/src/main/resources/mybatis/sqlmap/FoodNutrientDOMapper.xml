@@ -11,22 +11,26 @@
     <result column="food_id" jdbcType="BIGINT" property="foodId" />
     <result column="nutrient_id" jdbcType="BIGINT" property="nutrientId" />
     <result column="value" jdbcType="DECIMAL" property="value" />
-    <result column="unit_id" jdbcType="VARCHAR" property="unitId" />
+    <result column="unit_id" jdbcType="BIGINT" property="unitId" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, food_id, nutrient_id, 
     value, unit_id
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from food_nutrient
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from food_nutrient
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
     insert into food_nutrient (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -35,8 +39,9 @@
     values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{creatorId,jdbcType=VARCHAR}, #{modifierId,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
       #{foodId,jdbcType=BIGINT}, #{nutrientId,jdbcType=BIGINT}, #{value,jdbcType=DECIMAL}, 
-      #{unitId,jdbcType=VARCHAR})
+      #{unitId,jdbcType=BIGINT})
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
     insert into food_nutrient
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -100,10 +105,11 @@
         #{value,jdbcType=DECIMAL},
       </if>
       <if test="unitId != null">
-        #{unitId,jdbcType=VARCHAR},
+        #{unitId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
     update food_nutrient
     <set>
@@ -132,11 +138,12 @@
         value = #{value,jdbcType=DECIMAL},
       </if>
       <if test="unitId != null">
-        unit_id = #{unitId,jdbcType=VARCHAR},
+        unit_id = #{unitId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.FoodNutrientDO">
     update food_nutrient
     set create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -147,6 +154,14 @@
       food_id = #{foodId,jdbcType=BIGINT},
       nutrient_id = #{nutrientId,jdbcType=BIGINT},
       value = #{value,jdbcType=DECIMAL},
-      unit_id = #{unitId,jdbcType=VARCHAR}
+      unit_id = #{unitId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
-  </update></mapper>
+  </update>
+
+  <select id="selectByFoodId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from food_nutrient
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -12,20 +12,24 @@
     <result column="language_code" jdbcType="VARCHAR" property="languageCode" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, create_time, update_time, creator_id, modifier_id, deleted, brand_owner_id, language_code, 
     name
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from brand_owner_language
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from brand_owner_language
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
   <insert id="insert" parameterType="me.cxis.fdc.dao.model.BrandOwnerLanguageDO">
     insert into brand_owner_language (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
@@ -36,6 +40,7 @@
       #{brandOwnerId,jdbcType=BIGINT}, #{languageCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.BrandOwnerLanguageDO">
     insert into brand_owner_language
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -97,6 +102,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.BrandOwnerLanguageDO">
     update brand_owner_language
     <set>
@@ -127,6 +133,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.BrandOwnerLanguageDO">
     update brand_owner_language
     set create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -139,4 +146,12 @@
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByBrandOwnerIdAndLanguageCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from brand_owner_language
+    where brand_owner_id = #{brandOwnerId,jdbcType=BIGINT}
+      and language_code = #{languageCode,jdbcType=VARCHAR}
+  </select>
 </mapper>

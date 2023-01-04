@@ -10,6 +10,8 @@ public class Nutrient implements Serializable {
 
     private Long id;
 
+    private Long channelId;
+
     private Channel channel;
 
     private String code;
@@ -30,6 +32,14 @@ public class Nutrient implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Long channelId) {
+        this.channelId = channelId;
     }
 
     public Channel getChannel() {
@@ -92,6 +102,7 @@ public class Nutrient implements Serializable {
     public String toString() {
         return "Nutrient{" +
                 "id=" + id +
+                ", channelId=" + channelId +
                 ", channel=" + channel +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +

@@ -300,7 +300,7 @@ CREATE TABLE food_nutrient (
   food_id        bigint(20)                         NOT NULL COMMENT '食物ID', 
   nutrient_id    bigint(20)                         NOT NULL COMMENT '营养元素ID', 
   value          decimal(15, 5)                     NOT NULL COMMENT '营养元素值', 
-  unit_id        varchar(255)                       NOT NULL COMMENT '单位ID', 
+  unit_id        bigint(20)                         NOT NULL COMMENT '单位ID',
   PRIMARY KEY (id), 
   KEY idx_creator_id(creator_id), 
   KEY idx_modifier_id(modifier_id), 

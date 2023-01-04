@@ -22,7 +22,7 @@ public class FoodNutrientDO {
 
     private BigDecimal value;
 
-    private String unitId;
+    private Long unitId;
 
     public Long getId() {
         return id;
@@ -96,11 +96,11 @@ public class FoodNutrientDO {
         this.value = value;
     }
 
-    public String getUnitId() {
+    public Long getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(String unitId) {
+    public void setUnitId(Long unitId) {
         this.unitId = unitId;
     }
 }
