@@ -20,13 +20,13 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="me.cxis.fdc.dao.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="fun.pullock.fdc.dao.model" targetProject="src/main/java">
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="mybatis/sqlmap" targetProject="src/main/resources">
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="me.cxis.fdc.dao.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="fun.pullock.fdc.dao.mapper" targetProject="src/main/java">
         </javaClientGenerator>
         <table catalog="food_datacenter" tableName="language" domainObjectName="LanguageDO"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="me.cxis.fdc.dao.mapper.NutrientDOMapper">
-  <resultMap id="BaseResultMap" type="me.cxis.fdc.dao.model.NutrientDO">
+<mapper namespace="fun.pullock.fdc.dao.mapper.NutrientDOMapper">
+  <resultMap id="BaseResultMap" type="fun.pullock.fdc.dao.model.NutrientDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -34,7 +34,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insert" parameterType="me.cxis.fdc.dao.model.NutrientDO">
+  <insert id="insert" parameterType="fun.pullock.fdc.dao.model.NutrientDO">
     insert into nutrient (id, create_time, update_time, 
       creator_id, modifier_id, deleted, 
       channel_id, code, name, 
@@ -47,7 +47,7 @@
       #{order,jdbcType=INTEGER})
   </insert>
 
-  <insert id="insertSelective" parameterType="me.cxis.fdc.dao.model.NutrientDO">
+  <insert id="insertSelective" parameterType="fun.pullock.fdc.dao.model.NutrientDO">
     insert into nutrient
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -133,7 +133,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="me.cxis.fdc.dao.model.NutrientDO">
+  <update id="updateByPrimaryKeySelective" parameterType="fun.pullock.fdc.dao.model.NutrientDO">
     update nutrient
     <set>
       <if test="createTime != null">
@@ -176,7 +176,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <update id="updateByPrimaryKey" parameterType="me.cxis.fdc.dao.model.NutrientDO">
+  <update id="updateByPrimaryKey" parameterType="fun.pullock.fdc.dao.model.NutrientDO">
     update nutrient
     set create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
